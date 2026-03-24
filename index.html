@@ -1459,267 +1459,27 @@ function buildManifest(icon192,icon512){
   if(link)link.href=url;
 }
 
-// ══════════════════════════════════════════════════════
-// SERVICE WORKER — handles background notifications
-// The SW runs even when the app is closed/backgrounded
-// ══════════════════════════════════════════════════════
-const SW_CODE=`
-const CACHE_NAME='hoc-pro-v3';
-const QUOTES=[
-  "Get up and be somebody. No one is coming to save you.",
-  "The man who goes to the gym every day regardless of how he feels will beat the man who only goes when he feels like it.",
-  "Your mind must be stronger than your feelings.",
-  "Do the hard things first. Weakness is a choice.",
-  "Speed is extremely important. Act faster than everyone else.",
-  "Opportunities multiply as they are seized.",
-  "Victorious warriors win first, then go to war.",
-  "In the midst of chaos, there is also opportunity.",
-  "Power is not given. It is taken.",
-  "Execution is the game. Everything else is commentary.",
-  "The cost of inaction is greater than the cost of any mistake.",
-  "Every second you waste is a second someone else is using against you.",
-  "Discipline is the bridge between goals and accomplishment.",
-  "Stop waiting for the perfect moment. Attack.",
-  "Work in silence. Let the money make the noise.",
-];
-function randQuote(){return QUOTES[Math.floor(Math.random()*QUOTES.length)];}
-function p2(n){return String(n).padStart(2,'0');}
-function todayStr(){const d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
-
-let notifInterval=null;
-let taskData={tasks:[],settings:{repeatInterval:30,eodTime:'18:00'},mitId:null};
-
-// Read from cache store we set via postMessage
-self.addEventListener('message',e=>{
-  if(e.data&&e.data.type==='SYNC_TASKS'){
-    taskData=e.data.payload;
-    // Restart interval with new settings
-    startNotifInterval();
-  }
-  if(e.data&&e.data.type==='FIRE_NOW'){
-    runChecks();
-  }
-});
-
-function startNotifInterval(){
-  if(notifInterval)clearInterval(notifInterval);
-  const mins=parseInt(taskData.settings.repeatInterval)||30;
-  notifInterval=setInterval(runChecks,mins*60*1000);
-}
-
-function isOv(t){
-  if(t.done||!t.dueDate)return false;
-  return new Date(t.dueDate+(t.dueTime?'T'+t.dueTime:'T23:59'))<new Date();
-}
-function isTd(t){return t.dueDate===todayStr();}
-
-function runChecks(){
-  if(Notification.permission!=='granted')return;
-  const now=new Date();
-  const nowMin=now.getHours()*60+now.getMinutes();
-  const td=todayStr();
-  const tasks=taskData.tasks||[];
-  const repeatMins=parseInt(taskData.settings.repeatInterval)||30;
-  const slot=Math.floor(now.getTime()/(repeatMins*60*1000));
-
-  // 1. Due-now: fire exactly at scheduled time (within 1 min window)
-  tasks.forEach(t=>{
-    if(t.done||!t.dueDate||!t.dueTime)return;
-    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
-    const key='sw-due-'+t.id+'-'+t.dueDate+'-'+t.dueTime;
-    if(Math.abs(dueMs-now.getTime())<62000){
-      getLastFired(key).then(last=>{
-        if(!last){
-          setLastFired(key);
-          self.registration.showNotification('🔴 Due Now — '+t.name,{
-            body:(t.priority==='high'?'HIGH PRIORITY':'')+(t.notes?' · '+t.notes:'')+'\n"'+randQuote()+'"',
-            tag:'hoc-due-'+t.id,
-            icon:self.__HOC_ICON__||'',
-            badge:self.__HOC_ICON__||'',
-            requireInteraction:true,
-            vibrate:[200,100,200],
-            data:{taskId:t.id}
-          });
-        }
-      });
-    }
-  });
-
-  // 2. Task reminders (lead-up alerts)
-  tasks.forEach(t=>{
-    if(t.done||!t.dueDate||!t.dueTime||!t.reminders||!t.reminders.length)return;
-    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
-    t.reminders.forEach(r=>{
-      const key='sw-rem-'+t.id+'-'+r.offsetMins;
-      const fireMs=dueMs-(r.offsetMins*60*1000);
-      if(Math.abs(fireMs-now.getTime())<62000){
-        getLastFired(key).then(last=>{
-          if(!last){
-            setLastFired(key);
-            const fmtOffset=r.offsetMins<60?r.offsetMins+' min':(r.offsetMins/60)+'h';
-            self.registration.showNotification('⏰ '+t.name,{
-              body:(r.note||fmtOffset+' until due')+'\n"'+randQuote()+'"',
-              tag:'hoc-rem-'+t.id+'-'+r.offsetMins,
-              icon:self.__HOC_ICON__||'',
-              badge:self.__HOC_ICON__||'',
-              requireInteraction:true,
-              vibrate:[100,50,100],
-              data:{taskId:t.id}
-            });
-          }
-        });
-      }
-    });
-  });
-
-  // 3. Periodic nudge for open tasks (every N min until done)
-  const repKey='sw-repeat-'+slot;
-  getLastFired(repKey).then(last=>{
-    if(!last){
-      const pending=tasks.filter(t=>!t.done&&(isTd(t)||isOv(t)));
-      if(pending.length>0){
-        setLastFired(repKey);
-        const mit=taskData.mitId?tasks.find(t=>t.id===taskData.mitId&&!t.done):null;
-        const names=pending.slice(0,3).map(t=>t.name).join(', ')+(pending.length>3?' +more':'');
-        self.registration.showNotification('📌 '+pending.length+' open task'+(pending.length!==1?'s':'')+' — HOC PRO',{
-          body:(mit?'MIT: '+mit.name+'\n':'')+names+'\n"'+randQuote()+'"',
-          tag:'hoc-nudge-'+slot,
-          icon:self.__HOC_ICON__||'',
-          badge:self.__HOC_ICON__||'',
-          requireInteraction:false,
-          vibrate:[100,50,100],
-          actions:[{action:'open',title:'Open App'}]
-        });
-      }
-    }
-  });
-
-  // 4. Morning brief at 9:00 AM
-  const mKey='sw-morning-'+td;
-  if(nowMin>=540&&nowMin<542){
-    getLastFired(mKey).then(last=>{
-      if(!last){
-        setLastFired(mKey);
-        const cnt=tasks.filter(t=>!t.done&&t.dueDate===td).length;
-        const mit=taskData.mitId?tasks.find(t=>t.id===taskData.mitId&&!t.done):null;
-        self.registration.showNotification('☀️ Morning Brief — HOC PRO',{
-          body:(mit?'MIT: '+mit.name+' · ':'')+cnt+' tasks today.\n"'+randQuote()+'"',
-          tag:'hoc-morning-'+td,
-          icon:self.__HOC_ICON__||'',
-          requireInteraction:false,
-          vibrate:[100,50,100,50,100]
-        });
-      }
-    });
-  }
-
-  // 5. EOD nudge
-  const eodTime=taskData.settings.eodTime||'18:00';
-  const[rh,rm]=eodTime.split(':').map(Number);
-  const eKey='sw-eod-'+td;
-  if(nowMin>=rh*60+rm&&nowMin<rh*60+rm+2){
-    getLastFired(eKey).then(last=>{
-      if(!last){
-        setLastFired(eKey);
-        const done=tasks.filter(t=>t.done&&t.doneAt&&t.doneAt.startsWith(td)).length;
-        const left=tasks.filter(t=>!t.done&&(t.dueDate===td||isOv(t))).length;
-        self.registration.showNotification('📋 EOD Review — HOC PRO',{
-          body:done+' done · '+left+' remaining\n"'+randQuote()+'"',
-          tag:'hoc-eod-'+td,
-          icon:self.__HOC_ICON__||'',
-          requireInteraction:true,
-          vibrate:[200,100,200,100,200]
-        });
-      }
-    });
-  }
-
-  // 6. Daily core tasks — repeat every interval until done
-  const DAILY_CORE_KEYS=['hoc-core-gm','hoc-core-puzzle','hoc-core-figureout'];
-  DAILY_CORE_KEYS.forEach(coreKey=>{
-    const t=tasks.find(x=>x.coreKey===coreKey&&x.dueDate===td);
-    if(!t||t.done)return;
-    const cKey='sw-core-'+coreKey+'-'+slot;
-    getLastFired(cKey).then(last=>{
-      if(!last){
-        setLastFired(cKey);
-        self.registration.showNotification('⚡ Daily Core Undone — '+t.name,{
-          body:'This must be done today. No excuses.\n"'+randQuote()+'"',
-          tag:'hoc-core-'+coreKey+'-'+slot,
-          icon:self.__HOC_ICON__||'',
-          requireInteraction:false,
-          vibrate:[200,100,200]
-        });
-      }
-    });
-  });
-}
-
-// ── Simple fired-key store using Cache API (available in SW) ──
-async function getLastFired(key){
-  try{
-    const cache=await caches.open('hoc-fired-keys');
-    const r=await cache.match('https://hoc.local/fired/'+encodeURIComponent(key));
-    if(!r)return null;
-    const data=await r.json();
-    // Expire after 23h
-    if(Date.now()-data.ts>23*60*60*1000){await cache.delete('https://hoc.local/fired/'+encodeURIComponent(key));return null;}
-    return data;
-  }catch{return null;}
-}
-async function setLastFired(key){
-  try{
-    const cache=await caches.open('hoc-fired-keys');
-    await cache.put('https://hoc.local/fired/'+encodeURIComponent(key),new Response(JSON.stringify({ts:Date.now()})));
-  }catch{}
-}
-
-self.addEventListener('install',e=>{
-  e.waitUntil(self.skipWaiting());
-});
-self.addEventListener('activate',e=>{
-  e.waitUntil(self.clients.claim());
-  startNotifInterval();
-});
-self.addEventListener('notificationclick',e=>{
-  e.notification.close();
-  e.waitUntil(self.clients.matchAll({type:'window'}).then(clients=>{
-    if(clients.length)return clients[0].focus();
-    return self.clients.openWindow('./');
-  }));
-});
-// Periodic background sync (Chrome Android only, but graceful fallback)
-self.addEventListener('periodicsync',e=>{
-  if(e.tag==='hoc-notification-check'){
-    e.waitUntil(runChecks());
-  }
-});
-// Keepalive ping every minute via SW message (set up from page)
-self.addEventListener('message',e=>{
-  if(e.data&&e.data.type==='PING'){
-    runChecks();
-  }
-});
-`;
 
 async function registerServiceWorker(iconDataUrl){
   if(!('serviceWorker' in navigator))return null;
   try{
-    // Inject the icon URL into SW code
-    const swWithIcon=SW_CODE.replace('self.__HOC_ICON__=undefined','').replace(
-      'self.__HOC_ICON__||\'\'',
-      JSON.stringify(iconDataUrl)+'||\'\'');
-    // Actually we patch it differently:
-    const patchedSW=SW_CODE.split("self.__HOC_ICON__||''").join(JSON.stringify(iconDataUrl)||"''");
-    const swBlob=new Blob([patchedSW],{type:'application/javascript'});
-    const swURL=URL.createObjectURL(swBlob);
-    const reg=await navigator.serviceWorker.register(swURL,{scope:'./'});
+    // Use a real same-origin sw.js file — blob: URLs are blocked on Android Chrome
+    const swURL=location.pathname.replace(/\/[^\/]*$/, '/')+'sw.js';
+    const reg=await navigator.serviceWorker.register(swURL,{scope:location.pathname.replace(/\/[^\/]*$/,'/')});
     console.log('[HOC] SW registered',reg);
+    // Send icon to SW via postMessage once active
+    const sendInit=()=>{
+      const ctrl=navigator.serviceWorker.controller;
+      if(ctrl)ctrl.postMessage({type:'INIT',icon:iconDataUrl||''});
+    };
+    if(navigator.serviceWorker.controller){sendInit();}
+    navigator.serviceWorker.addEventListener('controllerchange',sendInit);
     return reg;
   }catch(e){
     console.warn('[HOC] SW registration failed:',e);
     return null;
   }
+}
 }
 
 // ══════════════════════════════════════════════════════
@@ -2015,17 +1775,19 @@ async function ensureNotificationPermission(){
 }
 
 // Page-side notification — fires when app IS open (fallback)
+// NOTE: new Notification() is an illegal constructor on Android Chrome.
+// Must always use ServiceWorkerRegistration.showNotification().
 function firePageNotification(title,body,tag){
   if(!('Notification' in window)||Notification.permission!=='granted')return;
-  try{
-    // Prefer SW showNotification (works backgrounded)
-    if(navigator.serviceWorker&&navigator.serviceWorker.controller&&swReg){
-      swReg.showNotification(title,{body,tag:tag||'hoc-'+Date.now(),icon:window._hocIcon||''});
-    }else{
-      new Notification(title,{body,tag:tag||'hoc-'+Date.now()});
-    }
-  }catch(e){}
-  playChime();
+  const opts={body,tag:tag||'hoc-'+Date.now(),icon:window._hocIcon||''};
+  if(swReg){
+    try{swReg.showNotification(title,opts);playChime();}catch(e){console.warn('[HOC] SW showNotification failed:',e);}
+  }else if(navigator.serviceWorker&&navigator.serviceWorker.ready){
+    navigator.serviceWorker.ready.then(reg=>{
+      try{reg.showNotification(title,opts);playChime();}catch(e){console.warn('[HOC] SW showNotification failed:',e);}
+    });
+  }
+  // Do NOT fall back to new Notification() — illegal constructor on Android
 }
 
 // ══════════════════════════════════════════════════════
@@ -2627,6 +2389,7 @@ function updateNotifStatus(){
   const swSupported='serviceWorker' in navigator;
   box.innerHTML=
     '<div>📱 Platform: <b>'+(isAndroid?'Android':(isIOS?'iOS':'Desktop/Other'))+'</b></div>'+
+    (isAndroid?'<div>⚠️ Android note: <b style="color:var(--warn)">Must use SW showNotification — new Notification() is blocked</b></div>':'')+
     '<div>🖥️ Home Screen mode: <b>'+(standalone?'✅ Yes (PWA)':'❌ No — install as PWA for background notifs')+'</b></div>'+
     '<div>🔔 Notification API: <b>'+(sup?'✅ Supported':'❌ Not supported')+'</b></div>'+
     '<div>🔑 Permission: <b style="color:'+(perm==='granted'?'var(--success)':perm==='denied'?'var(--danger)':'var(--warn)')+'">'+perm.toUpperCase()+'</b></div>'+
@@ -2852,9 +2615,17 @@ document.addEventListener('DOMContentLoaded',async()=>{
         vibrate:[200,100,200]
       });
       playChime();snack('✅ SW notification fired!');
+    }else if(navigator.serviceWorker&&navigator.serviceWorker.ready){
+      // Android Chrome: new Notification() is illegal constructor — must always use SW
+      navigator.serviceWorker.ready.then(reg=>{
+        reg.showNotification('✅ HOC PRO — Test',{
+          body:'Fired at '+new Date().toLocaleTimeString()+'\n(via SW ready)',
+          tag:'hoc-test-'+Date.now(),icon:window._hocIcon||'',requireInteraction:false
+        });
+        playChime();snack('✅ Test notification fired (SW ready).');
+      }).catch(e=>{snack('Error: '+e.message);});
     }else{
-      try{new Notification('✅ HOC PRO — Test',{body:'Fired at '+new Date().toLocaleTimeString(),tag:'hoc-test-'+Date.now()});playChime();snack('Test fired (page-mode).');}
-      catch(e){snack('Error: '+e.message);}
+      snack('No Service Worker available. Reload from Home Screen icon.');
     }
     setTimeout(updateNotifStatus,500);
   });
