@@ -1480,7 +1480,6 @@ async function registerServiceWorker(iconDataUrl){
     return null;
   }
 }
-}
 
 // ══════════════════════════════════════════════════════
 // STATE
@@ -2647,13 +2646,14 @@ document.addEventListener('DOMContentLoaded',async()=>{
   // Initial render
   render();updateCounts();updateHeader();renderMsgHistory();renderDailyPlan();
   checkEndOfDay();setInterval(checkEndOfDay,60000);
- updateNotifStatus();
+  updateNotifStatus();
 
-if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js')
     .then(() => console.log('SW registered'))
     .catch(err => console.log('SW error:', err));
 }
+});
 </script>
 </body>
 </html>
