@@ -1814,23 +1814,20 @@ async function ensureNotificationPermission(){
 function fireNotification(title,body,tag){
   if(!('Notification' in window)||Notification.permission!=='granted')return;
   const opts={body:body+'\n"'+getRandQuote()+'"',tag:tag||'hoc-'+Date.now()};
-  // Android (and modern browsers) require showNotification() via SW registration
-  // Direct new Notification() throws "Invalid constructor" on Android Chrome
-  if('serviceWorker' in navigator && navigator.serviceWorker.controller){
+  // Android Chrome does NOT support new Notification() — must always use SW showNotification.
+  // iOS Safari (standalone) supports new Notification() as a fallback only.
+  if('serviceWorker' in navigator){
     navigator.serviceWorker.ready.then(reg=>{
-      reg.showNotification(title,opts);
+      return reg.showNotification(title,opts);
     }).catch(()=>{
-      try{new Notification(title,opts);}catch(e){}
+      // Only try direct Notification on iOS standalone where it is supported
+      if(window.navigator.standalone){
+        try{new Notification(title,opts);}catch(e){}
+      }
     });
   } else {
-    try{new Notification(title,opts);}catch(e){
-      // Android fallback: wait for SW to be ready then use showNotification
-      if('serviceWorker' in navigator){
-        navigator.serviceWorker.ready.then(reg=>{
-          reg.showNotification(title,opts);
-        }).catch(()=>{});
-      }
-    }
+    // No SW support at all — try direct (iOS old versions)
+    try{new Notification(title,opts);}catch(e){}
   }
   playChime();
 }
@@ -2691,8 +2688,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateNotifStatus();
   document.getElementById('testNotifBtn').addEventListener('click',()=>{
     if(!('Notification' in window)||Notification.permission!=='granted'){snack('Permission not granted.');return;}
-    try{new Notification('✅ HOC PRO — Test',{body:'Fired at '+new Date().toLocaleTimeString(),tag:'hoc-test-'+Date.now()});playChime();snack('Test fired!');}
-    catch(e){snack('Error: '+e.message);}
+    const _tOpts={body:'Fired at '+new Date().toLocaleTimeString(),tag:'hoc-test-'+Date.now()};
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.ready.then(reg=>reg.showNotification('✅ HOC PRO — Test',_tOpts))
+        .then(()=>{playChime();snack('Test fired!');})
+        .catch(e=>{snack('Error: '+e.message);});
+    } else {
+      try{new Notification('✅ HOC PRO — Test',_tOpts);playChime();snack('Test fired!');}
+      catch(e){snack('Error: '+e.message);}
+    }
   });
   document.getElementById('reqPermBtn').addEventListener('click',()=>{
     ensureNotificationPermission().then(g=>{
@@ -2741,12 +2745,23 @@ if('serviceWorker' in navigator){
   const swCode = `
 const CACHE = 'hoc-pwa-v1';
 self.addEventListener('install', e => {
+  self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./'])));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(self.clients.claim());
 });
 self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match('/')))
   );
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({type:'window'}).then(list => {
+    for(const c of list){ if(c.url && 'focus' in c) return c.focus(); }
+    if(self.clients.openWindow) return self.clients.openWindow('/');
+  }));
 });
   `;
   const swBlob = new Blob([swCode], {type:'application/javascript'});
