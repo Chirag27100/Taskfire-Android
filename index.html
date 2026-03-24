@@ -2647,12 +2647,13 @@ document.addEventListener('DOMContentLoaded',async()=>{
   // Initial render
   render();updateCounts();updateHeader();renderMsgHistory();renderDailyPlan();
   checkEndOfDay();setInterval(checkEndOfDay,60000);
-  updateNotifStatus();
-  if ('serviceWorker' in navigator) {
+ updateNotifStatus();
+
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js')
-    .then(reg => console.log('SW registered'))
+    .then(() => console.log('SW registered'))
     .catch(err => console.log('SW error:', err));
-});
+}
 </script>
 </body>
 </html>
