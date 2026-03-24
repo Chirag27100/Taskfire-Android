@@ -3,14 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- iOS PWA -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="HOC PRO">
-<meta name="theme-color" content="#faf8f4">
-<link rel="manifest" href="#" id="manifestLink">
+<!-- Android Chrome PWA -->
+<meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0c09" media="(prefers-color-scheme: dark)">
+<link rel="manifest" id="manifestLink">
 <title>House of Chirag — Command Centre PRO</title>
-<link rel="apple-touch-icon" href="data:image/jpeg;base64,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">
+<!-- Apple touch icons (multiple sizes for iOS) -->
+<link rel="apple-touch-icon" sizes="180x180" id="appleIcon180">
+<link rel="apple-touch-icon" sizes="152x152" id="appleIcon152">
+<link rel="apple-touch-icon" sizes="120x120" id="appleIcon120">
+<link rel="icon" type="image/png" sizes="192x192" id="androidIcon192">
+<link rel="icon" type="image/png" sizes="512x512" id="androidIcon512">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -60,8 +68,6 @@ body{
   padding-bottom:calc(56px + var(--safe-bottom));
   overflow-x:hidden;
 }
-
-/* ── HEADER ── */
 .header{
   position:sticky;top:0;z-index:200;
   background:var(--surface);
@@ -97,8 +103,6 @@ body{
   font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;
   color:var(--ink);
 }
-
-/* ── MIT BANNER ── */
 .mit-banner{
   background:var(--surface2);border-bottom:1px solid var(--border);
   padding:7px 16px;display:none;align-items:center;gap:8px;
@@ -116,8 +120,6 @@ body{
   background:none;border:none;color:var(--stone2);cursor:pointer;
   font-size:.8rem;padding:3px 6px;
 }
-
-/* ── BOTTOM NAV ── */
 .bottom-nav{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
   background:var(--surface);border-top:1px solid var(--border);
@@ -145,12 +147,8 @@ body{
   display:none;align-items:center;justify-content:center;
 }
 .bn-badge.on{display:flex;}
-
-/* ── PAGES ── */
 .page{display:none;padding:16px;min-height:60vh;}
 .page.on{display:block;}
-
-/* ── SECTION HEADER ── */
 .sec-hdr{
   font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500;
   color:var(--ink);margin-bottom:12px;
@@ -160,8 +158,6 @@ body{
   font-family:'EB Garamond',serif;font-size:.85rem;
   color:var(--stone2);
 }
-
-/* ── PROGRESS BAR ── */
 .prog-wrap{margin-bottom:16px;}
 .prog-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--gold);transition:width .4s;}
@@ -170,8 +166,6 @@ body{
   font-family:'EB Garamond',serif;font-size:.78rem;color:var(--stone2);
   margin-top:4px;
 }
-
-/* ── VIEW FILTER PILLS ── */
 .view-pills{
   display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;
   margin-bottom:12px;scrollbar-width:none;-ms-overflow-style:none;
@@ -191,8 +185,6 @@ body{
 .view-pill-cnt{
   font-size:.72rem;opacity:.7;
 }
-
-/* ── ADD TASK FORM ── */
 .add-form{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:14px;margin-bottom:16px;
@@ -227,9 +219,6 @@ body{
   color:var(--ink);background:transparent;outline:none;width:100%;
 }
 .af-select option{background:var(--surface);color:var(--ink);}
-.af-toggle{
-  display:flex;gap:8px;
-}
 .af-tog-btn{
   flex:1;background:var(--surface2);border:1px solid var(--border);
   border-radius:var(--radius);padding:6px;text-align:center;cursor:pointer;
@@ -243,15 +232,12 @@ body{
   font-family:'EB Garamond',serif;font-size:.82rem;padding:4px 0;
   display:block;margin-top:4px;
 }
-
-/* ── TASK LIST ── */
 .task-group{margin-bottom:16px;}
 .tg-label{
   font-family:'Libre Baskerville',serif;font-size:.4rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--stone2);
   padding:8px 0 6px;border-bottom:1px solid var(--rule);margin-bottom:8px;
 }
-
 .task-item{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:11px 12px;
@@ -262,7 +248,6 @@ body{
 .task-item.overdue{border-left:3px solid var(--danger);}
 .task-item.hi-pri:not(.overdue){border-left:3px solid var(--hi-fg);}
 .task-item.is-mit{border-left:3px solid var(--gold2);background:var(--gold-pale);}
-
 .ring{
   width:18px;height:18px;border:1.5px solid var(--border);
   border-radius:50%;cursor:pointer;flex-shrink:0;margin-top:2px;
@@ -270,7 +255,6 @@ body{
 }
 .ring:active{background:var(--border);}
 .ring.dn{background:var(--nav-active);border-color:var(--nav-active);}
-
 .ti-body{flex:1;min-width:0;}
 .ti-name{
   font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400;
@@ -295,8 +279,6 @@ body{
 .chip.mit-chip{background:var(--gold-pale);color:var(--gold2);border-color:var(--gold-dim);}
 .chip.carried{background:var(--surface2);color:var(--stone);}
 .chip.recur{background:var(--surface2);color:var(--stone);}
-
-/* subtasks */
 .subtasks{margin-top:6px;}
 .subtask-prog-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .subtask-prog-bar{flex:1;height:2px;background:var(--border);border-radius:1px;}
@@ -310,8 +292,6 @@ body{
 .subtask-ring.dn{background:var(--stone2);border-color:var(--stone2);}
 .subtask-name{font-family:'EB Garamond',serif;font-size:.85rem;color:var(--ink4);}
 .subtask-name.dn{text-decoration:line-through;color:var(--stone2);}
-
-/* task actions */
 .ti-actions{
   display:flex;flex-direction:column;gap:4px;flex-shrink:0;
 }
@@ -323,8 +303,6 @@ body{
 }
 .ti-btn:active{background:var(--surface2);}
 .ti-btn.has-rem{color:var(--gold);}
-
-/* empty state */
 .empty-state{
   text-align:center;padding:48px 24px;
 }
@@ -340,8 +318,6 @@ body{
   font-family:'EB Garamond',serif;font-size:.88rem;
   font-style:italic;color:var(--stone2);
 }
-
-/* ── SORT / SEARCH ── */
 .search-row{
   display:flex;gap:8px;align-items:center;margin-bottom:12px;
 }
@@ -357,8 +333,6 @@ body{
   color:var(--stone2);background:transparent;outline:none;
 }
 .sort-sel option{background:var(--surface);color:var(--ink);}
-
-/* ── BULK BAR ── */
 .bulk-bar{
   position:sticky;bottom:calc(56px + var(--safe-bottom));z-index:100;
   background:var(--nav-active);padding:10px 16px;
@@ -373,8 +347,6 @@ body{
   color:var(--bg);border-radius:var(--radius);
   padding:5px 10px;font-family:'EB Garamond',serif;font-size:.82rem;cursor:pointer;
 }
-
-/* ── CALENDAR ── */
 .cal-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
 .cal-nav-btn{
   background:var(--surface2);border:1px solid var(--border);
@@ -454,8 +426,6 @@ body{
   letter-spacing:.1em;text-transform:uppercase;
   padding:2px 5px;border:1px solid;border-radius:2px;
 }
-
-/* ── ANALYTICS ── */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .stat-card{
   background:var(--surface);border:1px solid var(--border);
@@ -508,8 +478,6 @@ body{
   font-family:'Playfair Display',serif;font-size:.85rem;color:var(--ink3);
   width:24px;text-align:right;flex-shrink:0;
 }
-
-/* ── MESSAGING ── */
 .msg-tabs{display:flex;gap:6px;margin-bottom:14px;}
 .msg-tab{
   flex:1;background:var(--surface2);border:1px solid var(--border);
@@ -566,8 +534,6 @@ body{
   border-radius:var(--radius);padding:3px 8px;cursor:pointer;
   font-family:'EB Garamond',serif;font-size:.75rem;color:var(--stone2);
 }
-
-/* ── REVIEWS ── */
 .review-card{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:14px;margin-bottom:10px;
@@ -591,8 +557,6 @@ body{
   color:var(--stone2);margin-top:8px;padding-top:8px;
   border-top:1px solid var(--rule2);
 }
-
-/* ── SETTINGS ── */
 .sett-section{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:14px;margin-bottom:12px;
@@ -639,8 +603,6 @@ body{
   font-family:'EB Garamond',serif;font-size:.82rem;color:var(--stone2);
   display:block;width:100%;text-align:left;margin-bottom:6px;
 }
-
-/* ── MODALS ── */
 .modal-bg{
   position:fixed;inset:0;z-index:500;
   background:rgba(0,0,0,.5);
@@ -691,8 +653,6 @@ body{
   font-family:'Libre Baskerville',serif;font-size:.48rem;
   letter-spacing:.15em;text-transform:uppercase;
 }
-
-/* ── REMINDER MODAL ── */
 .rem-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
 .rem-preset{
   background:var(--surface2);border:1px solid var(--border);
@@ -714,31 +674,6 @@ body{
 .rem-item-time{font-family:'EB Garamond',serif;font-size:.85rem;color:var(--ink3);flex:1;}
 .rem-item-note{font-family:'EB Garamond',serif;font-size:.78rem;font-style:italic;color:var(--stone2);}
 .rem-item-del{background:none;border:none;color:var(--stone2);cursor:pointer;font-size:.9rem;}
-
-/* ── TASK DETAIL SHEET ── */
-.detail-sheet{
-  position:fixed;inset:0;z-index:400;
-  background:var(--bg);overflow-y:auto;
-  display:none;
-  padding:16px;
-  padding-top:calc(16px + var(--safe-top));
-  padding-bottom:calc(72px + var(--safe-bottom));
-}
-.detail-sheet.on{display:block;}
-.ds-header{
-  display:flex;align-items:center;gap:10px;margin-bottom:20px;
-}
-.ds-back{
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--radius);padding:6px 10px;cursor:pointer;
-  font-family:'EB Garamond',serif;font-size:.85rem;color:var(--stone2);
-}
-.ds-title{
-  flex:1;font-family:'Playfair Display',serif;font-size:1.1rem;
-  font-weight:500;color:var(--ink);
-}
-
-/* ── FOCUS OVERLAY ── */
 .focus-overlay{
   position:fixed;inset:0;z-index:600;
   background:var(--bg);
@@ -777,8 +712,6 @@ body{
   font-family:'EB Garamond',serif;font-size:.9rem;font-style:italic;
   color:var(--stone2);margin-bottom:16px;line-height:1.6;
 }
-
-/* Pomodoro */
 .pomodoro-wrap{
   display:flex;flex-direction:column;align-items:center;
   padding:20px 0;
@@ -814,8 +747,6 @@ body{
   border-radius:var(--radius);padding:8px 14px;cursor:pointer;
   font-family:'EB Garamond',serif;font-size:.85rem;color:var(--stone2);
 }
-
-/* ── DAILY PLAN ── */
 .daily-plan{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);margin-bottom:16px;overflow:hidden;
@@ -867,8 +798,6 @@ body{
   flex:1;font-family:'Cormorant Garamond',serif;
   font-style:italic;font-size:.95rem;color:var(--ink);
 }
-
-/* ── EOD MODAL ── */
 .eod-modal-bg{
   position:fixed;inset:0;z-index:500;
   background:rgba(0,0,0,.6);
@@ -921,8 +850,6 @@ body{
   border-radius:var(--radius);padding:10px;cursor:pointer;
   font-family:'EB Garamond',serif;font-size:.85rem;color:var(--stone2);
 }
-
-/* ── SNACK / TOAST ── */
 #snack{
   position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;
   transform:translateX(-50%);
@@ -934,8 +861,6 @@ body{
   max-width:90vw;
 }
 #snack.on{opacity:1;}
-
-/* ── HEATMAP ── */
 .hm-row{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
 .hm-cell{
   width:calc((100% - 6*4px)/7);aspect-ratio:1;border-radius:2px;
@@ -945,28 +870,14 @@ body{
 .hm-cell.l2{background:var(--gold);}
 .hm-cell.l3{background:var(--gold2);}
 .hm-cell.l4{background:var(--ink);}
-
-/* ── INSTAGRAM/WA opening ── */
-.open-link-btn{
-  display:inline-block;
-  background:var(--nav-active);color:var(--bg);
-  border:none;border-radius:var(--radius);padding:8px 16px;cursor:pointer;
-  font-family:'EB Garamond',serif;font-size:.88rem;text-decoration:none;
-  margin-top:6px;
+/* SW notification status banner */
+.sw-status-banner{
+  background:var(--warn-bg);border:1px solid var(--warn);
+  border-radius:var(--radius);padding:10px 12px;margin-bottom:12px;
+  font-family:'EB Garamond',serif;font-size:.85rem;color:var(--warn);
+  display:none;
 }
-
-/* daily plan list tab inside tasks page */
-.task-page-tabs{
-  display:flex;gap:6px;margin-bottom:12px;
-}
-.tp-tab{
-  flex:1;background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--radius);padding:7px;text-align:center;cursor:pointer;
-  font-family:'EB Garamond',serif;font-size:.82rem;color:var(--stone2);
-}
-.tp-tab.on{
-  background:var(--nav-active);color:var(--bg);border-color:var(--nav-active);
-}
+.sw-status-banner.on{display:block;}
 </style>
 </head>
 <body>
@@ -995,10 +906,7 @@ body{
 </div>
 
 <!-- PAGES -->
-
-<!-- ═══ TASKS PAGE ═══ -->
 <div class="page on" id="taskPage">
-  <!-- Daily Plan Toggle -->
   <div class="daily-plan">
     <div class="dp-toggle" id="dpToggle">
       <span class="dp-toggle-title">📋 Today's Battle Plan</span>
@@ -1006,8 +914,6 @@ body{
     </div>
     <div class="dp-body" id="dpBody"></div>
   </div>
-
-  <!-- Add Form -->
   <div class="add-form">
     <div class="add-row">
       <input class="add-input" id="tName" placeholder="What must be done…" autocomplete="off" autocorrect="off">
@@ -1063,8 +969,6 @@ body{
       </div>
     </div>
   </div>
-
-  <!-- Progress -->
   <div class="prog-wrap">
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
     <div class="prog-nums">
@@ -1073,8 +977,6 @@ body{
       <span id="pbLeft">0 left</span>
     </div>
   </div>
-
-  <!-- View Pills -->
   <div class="view-pills">
     <div class="view-pill on" data-view="today">Today <span class="view-pill-cnt" id="nc-today">0</span></div>
     <div class="view-pill" data-view="all">All Active <span class="view-pill-cnt" id="nc-all">0</span></div>
@@ -1083,8 +985,6 @@ body{
     <div class="view-pill" data-view="overdue">Overdue <span class="view-pill-cnt" id="nc-overdue">0</span></div>
     <div class="view-pill" data-view="done">Done <span class="view-pill-cnt" id="nc-done">0</span></div>
   </div>
-
-  <!-- Search + Sort -->
   <div class="search-row">
     <input class="search-input" id="searchInput" placeholder="Search tasks…">
     <button id="searchClear" style="display:none;background:none;border:none;cursor:pointer;color:var(--stone2);font-size:.9rem;">✕</button>
@@ -1095,11 +995,7 @@ body{
       <option value="alpha">A–Z</option>
     </select>
   </div>
-
-  <!-- Task List -->
   <div id="taskList"></div>
-
-  <!-- Bulk Bar -->
   <div class="bulk-bar" id="bulkBar">
     <span class="bulk-info"><span id="bulkCount">0</span> selected</span>
     <button class="bulk-btn" id="bulkDone">✓ Done</button>
@@ -1108,7 +1004,7 @@ body{
   </div>
 </div>
 
-<!-- ═══ CALENDAR PAGE ═══ -->
+<!-- CALENDAR PAGE -->
 <div class="page" id="calPage">
   <div class="cal-header">
     <button class="cal-nav-btn" id="calPrev">‹</button>
@@ -1125,7 +1021,7 @@ body{
   </div>
 </div>
 
-<!-- ═══ ANALYTICS PAGE ═══ -->
+<!-- ANALYTICS PAGE -->
 <div class="page" id="analyticsPage">
   <div class="sec-hdr">Analytics</div>
   <div class="stats-grid" id="analyticsGrid"></div>
@@ -1182,7 +1078,7 @@ body{
   </div>
 </div>
 
-<!-- ═══ MESSAGING PAGE ═══ -->
+<!-- MESSAGING PAGE -->
 <div class="page" id="msgPage">
   <div class="sec-hdr">Message Centre</div>
   <div class="msg-tabs">
@@ -1190,7 +1086,6 @@ body{
     <div class="msg-tab" data-plat="ig">Instagram</div>
     <div class="msg-tab" data-plat="wa">WhatsApp</div>
   </div>
-  <!-- Discord Form -->
   <div class="msg-form" id="dc-form">
     <div class="mf-row">
       <label class="mf-label">Channel</label>
@@ -1221,7 +1116,6 @@ body{
       Post Weekly Scorecard
     </button>
   </div>
-  <!-- Instagram Form -->
   <div class="msg-form" id="ig-form" style="display:none">
     <div class="mf-row">
       <label class="mf-label">Username</label>
@@ -1233,7 +1127,6 @@ body{
     </div>
     <button class="mf-btn" id="igNow">Copy & Open Instagram</button>
   </div>
-  <!-- WhatsApp Form -->
   <div class="msg-form" id="wa-form" style="display:none">
     <div class="mf-row">
       <label class="mf-label">Number (with country code)</label>
@@ -1245,18 +1138,17 @@ body{
     </div>
     <button class="mf-btn" id="waNow">Open WhatsApp</button>
   </div>
-  <!-- History -->
   <div class="sec-hdr" style="margin-top:8px;">History</div>
   <div id="msgHistList"></div>
 </div>
 
-<!-- ═══ REVIEWS PAGE ═══ -->
+<!-- REVIEWS PAGE -->
 <div class="page" id="reviewPage">
   <div class="sec-hdr">EOD Reviews</div>
   <div id="reviewList"></div>
 </div>
 
-<!-- ═══ SETTINGS PAGE ═══ -->
+<!-- SETTINGS PAGE -->
 <div class="page" id="settPage">
   <div class="sett-section">
     <div class="sett-hdr">Claude API</div>
@@ -1318,11 +1210,13 @@ body{
     <div class="sett-hdr">About</div>
     <div style="font-family:'EB Garamond',serif;font-size:.9rem;color:var(--ink4);line-height:1.7">
       <strong style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ink)">House of Chirag — Command Centre PRO</strong><br>
-      Version 3.0.0 — PWA Release<br>
+      Version 3.1.0 — PWA Release (iOS + Android)<br>
       <span style="font-style:italic;color:var(--stone2)">Built for execution. Not for excuses.</span>
     </div>
     <div style="margin-top:10px;padding:10px;background:var(--surface2);border-radius:var(--radius);font-family:'EB Garamond',serif;font-size:.82rem;color:var(--stone2);line-height:1.6">
-      📱 <strong style="color:var(--ink3)">Add to Home Screen:</strong> Tap the Share button in Safari → "Add to Home Screen" → Add. The app will open full-screen like a native app.
+      📱 <strong style="color:var(--ink3)">iOS (Safari):</strong> Tap Share → "Add to Home Screen" → Add<br>
+      🤖 <strong style="color:var(--ink3)">Android (Chrome):</strong> Tap ⋮ Menu → "Add to Home screen" → Add<br>
+      <em>Must be installed as PWA for background notifications to work.</em>
     </div>
   </div>
 </div>
@@ -1472,16 +1366,365 @@ body{
 </div>
 
 <div id="snack"></div>
+
 <script>
-// ── Theme flash prevention ──
+// ══ Theme flash prevention ══
 (function(){
   const t=localStorage.getItem('hoc-theme')||'light';
   document.documentElement.setAttribute('data-theme',t);
 })();
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// ICON GENERATOR — creates proper PNG icons for both
+// iOS and Android using Canvas
+// ══════════════════════════════════════════════════════
+function generateIcon(size){
+  const canvas=document.createElement('canvas');
+  canvas.width=size;canvas.height=size;
+  const ctx=canvas.getContext('2d');
+  // Background — deep dark
+  ctx.fillStyle='#0e0c09';
+  const r=size*0.18;
+  ctx.beginPath();
+  ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.quadraticCurveTo(size,0,size,r);
+  ctx.lineTo(size,size-r);ctx.quadraticCurveTo(size,size,size-r,size);
+  ctx.lineTo(r,size);ctx.quadraticCurveTo(0,size,0,size-r);
+  ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);
+  ctx.closePath();ctx.fill();
+  // Gold border
+  ctx.strokeStyle='#b89050';ctx.lineWidth=size*0.025;
+  ctx.stroke();
+  // "H" letter — serif style
+  const fs=size*0.52;
+  ctx.font=`600 ${fs}px 'Playfair Display', Georgia, serif`;
+  ctx.fillStyle='#b89050';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('H',size/2,size*0.48);
+  // "PRO" text below
+  const fs2=size*0.13;
+  ctx.font=`400 ${fs2}px 'Libre Baskerville', Georgia, serif`;
+  ctx.fillStyle='#6a5a3a';
+  ctx.letterSpacing='0.12em';
+  ctx.fillText('PRO',size/2,size*0.78);
+  return canvas.toDataURL('image/png');
+}
+
+// Generate icons and apply to link tags + store for manifest
+function applyIcons(){
+  const i192=generateIcon(192);
+  const i512=generateIcon(512);
+  const i180=generateIcon(180);
+  const i152=generateIcon(152);
+  const i120=generateIcon(120);
+  // iOS
+  ['appleIcon180','appleIcon152','appleIcon120'].forEach((id,idx)=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.href=[i180,i152,i120][idx];
+  });
+  // Android + generic
+  const ai=document.getElementById('androidIcon192');if(ai)ai.href=i192;
+  const ai5=document.getElementById('androidIcon512');if(ai5)ai5.href=i512;
+  // Build manifest for Android Chrome PWA
+  buildManifest(i192,i512);
+  return{i192,i512,i180};
+}
+
+function buildManifest(icon192,icon512){
+  const manifestData={
+    name:'House of Chirag — Command Centre PRO',
+    short_name:'HOC PRO',
+    description:'Execute. Track. Dominate.',
+    start_url:'./',
+    scope:'./',
+    display:'standalone',
+    display_override:['standalone','fullscreen','minimal-ui','browser'],
+    background_color:'#0e0c09',
+    theme_color:'#faf8f4',
+    orientation:'portrait-primary',
+    categories:['productivity','utilities'],
+    icons:[
+      {src:icon192,sizes:'192x192',type:'image/png',purpose:'any'},
+      {src:icon192,sizes:'192x192',type:'image/png',purpose:'maskable'},
+      {src:icon512,sizes:'512x512',type:'image/png',purpose:'any'},
+      {src:icon512,sizes:'512x512',type:'image/png',purpose:'maskable'},
+    ],
+    shortcuts:[
+      {name:'Add Task',short_name:'Add',description:'Add a new task',url:'./?action=add'},
+      {name:'Today',short_name:'Today',description:"Today's tasks",url:'./?view=today'}
+    ]
+  };
+  const blob=new Blob([JSON.stringify(manifestData)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const link=document.getElementById('manifestLink');
+  if(link)link.href=url;
+}
+
+// ══════════════════════════════════════════════════════
+// SERVICE WORKER — handles background notifications
+// The SW runs even when the app is closed/backgrounded
+// ══════════════════════════════════════════════════════
+const SW_CODE=`
+const CACHE_NAME='hoc-pro-v3';
+const QUOTES=[
+  "Get up and be somebody. No one is coming to save you.",
+  "The man who goes to the gym every day regardless of how he feels will beat the man who only goes when he feels like it.",
+  "Your mind must be stronger than your feelings.",
+  "Do the hard things first. Weakness is a choice.",
+  "Speed is extremely important. Act faster than everyone else.",
+  "Opportunities multiply as they are seized.",
+  "Victorious warriors win first, then go to war.",
+  "In the midst of chaos, there is also opportunity.",
+  "Power is not given. It is taken.",
+  "Execution is the game. Everything else is commentary.",
+  "The cost of inaction is greater than the cost of any mistake.",
+  "Every second you waste is a second someone else is using against you.",
+  "Discipline is the bridge between goals and accomplishment.",
+  "Stop waiting for the perfect moment. Attack.",
+  "Work in silence. Let the money make the noise.",
+];
+function randQuote(){return QUOTES[Math.floor(Math.random()*QUOTES.length)];}
+function p2(n){return String(n).padStart(2,'0');}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+
+let notifInterval=null;
+let taskData={tasks:[],settings:{repeatInterval:30,eodTime:'18:00'},mitId:null};
+
+// Read from cache store we set via postMessage
+self.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='SYNC_TASKS'){
+    taskData=e.data.payload;
+    // Restart interval with new settings
+    startNotifInterval();
+  }
+  if(e.data&&e.data.type==='FIRE_NOW'){
+    runChecks();
+  }
+});
+
+function startNotifInterval(){
+  if(notifInterval)clearInterval(notifInterval);
+  const mins=parseInt(taskData.settings.repeatInterval)||30;
+  notifInterval=setInterval(runChecks,mins*60*1000);
+}
+
+function isOv(t){
+  if(t.done||!t.dueDate)return false;
+  return new Date(t.dueDate+(t.dueTime?'T'+t.dueTime:'T23:59'))<new Date();
+}
+function isTd(t){return t.dueDate===todayStr();}
+
+function runChecks(){
+  if(Notification.permission!=='granted')return;
+  const now=new Date();
+  const nowMin=now.getHours()*60+now.getMinutes();
+  const td=todayStr();
+  const tasks=taskData.tasks||[];
+  const repeatMins=parseInt(taskData.settings.repeatInterval)||30;
+  const slot=Math.floor(now.getTime()/(repeatMins*60*1000));
+
+  // 1. Due-now: fire exactly at scheduled time (within 1 min window)
+  tasks.forEach(t=>{
+    if(t.done||!t.dueDate||!t.dueTime)return;
+    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
+    const key='sw-due-'+t.id+'-'+t.dueDate+'-'+t.dueTime;
+    if(Math.abs(dueMs-now.getTime())<62000){
+      getLastFired(key).then(last=>{
+        if(!last){
+          setLastFired(key);
+          self.registration.showNotification('🔴 Due Now — '+t.name,{
+            body:(t.priority==='high'?'HIGH PRIORITY':'')+(t.notes?' · '+t.notes:'')+'\n"'+randQuote()+'"',
+            tag:'hoc-due-'+t.id,
+            icon:self.__HOC_ICON__||'',
+            badge:self.__HOC_ICON__||'',
+            requireInteraction:true,
+            vibrate:[200,100,200],
+            data:{taskId:t.id}
+          });
+        }
+      });
+    }
+  });
+
+  // 2. Task reminders (lead-up alerts)
+  tasks.forEach(t=>{
+    if(t.done||!t.dueDate||!t.dueTime||!t.reminders||!t.reminders.length)return;
+    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
+    t.reminders.forEach(r=>{
+      const key='sw-rem-'+t.id+'-'+r.offsetMins;
+      const fireMs=dueMs-(r.offsetMins*60*1000);
+      if(Math.abs(fireMs-now.getTime())<62000){
+        getLastFired(key).then(last=>{
+          if(!last){
+            setLastFired(key);
+            const fmtOffset=r.offsetMins<60?r.offsetMins+' min':(r.offsetMins/60)+'h';
+            self.registration.showNotification('⏰ '+t.name,{
+              body:(r.note||fmtOffset+' until due')+'\n"'+randQuote()+'"',
+              tag:'hoc-rem-'+t.id+'-'+r.offsetMins,
+              icon:self.__HOC_ICON__||'',
+              badge:self.__HOC_ICON__||'',
+              requireInteraction:true,
+              vibrate:[100,50,100],
+              data:{taskId:t.id}
+            });
+          }
+        });
+      }
+    });
+  });
+
+  // 3. Periodic nudge for open tasks (every N min until done)
+  const repKey='sw-repeat-'+slot;
+  getLastFired(repKey).then(last=>{
+    if(!last){
+      const pending=tasks.filter(t=>!t.done&&(isTd(t)||isOv(t)));
+      if(pending.length>0){
+        setLastFired(repKey);
+        const mit=taskData.mitId?tasks.find(t=>t.id===taskData.mitId&&!t.done):null;
+        const names=pending.slice(0,3).map(t=>t.name).join(', ')+(pending.length>3?' +more':'');
+        self.registration.showNotification('📌 '+pending.length+' open task'+(pending.length!==1?'s':'')+' — HOC PRO',{
+          body:(mit?'MIT: '+mit.name+'\n':'')+names+'\n"'+randQuote()+'"',
+          tag:'hoc-nudge-'+slot,
+          icon:self.__HOC_ICON__||'',
+          badge:self.__HOC_ICON__||'',
+          requireInteraction:false,
+          vibrate:[100,50,100],
+          actions:[{action:'open',title:'Open App'}]
+        });
+      }
+    }
+  });
+
+  // 4. Morning brief at 9:00 AM
+  const mKey='sw-morning-'+td;
+  if(nowMin>=540&&nowMin<542){
+    getLastFired(mKey).then(last=>{
+      if(!last){
+        setLastFired(mKey);
+        const cnt=tasks.filter(t=>!t.done&&t.dueDate===td).length;
+        const mit=taskData.mitId?tasks.find(t=>t.id===taskData.mitId&&!t.done):null;
+        self.registration.showNotification('☀️ Morning Brief — HOC PRO',{
+          body:(mit?'MIT: '+mit.name+' · ':'')+cnt+' tasks today.\n"'+randQuote()+'"',
+          tag:'hoc-morning-'+td,
+          icon:self.__HOC_ICON__||'',
+          requireInteraction:false,
+          vibrate:[100,50,100,50,100]
+        });
+      }
+    });
+  }
+
+  // 5. EOD nudge
+  const eodTime=taskData.settings.eodTime||'18:00';
+  const[rh,rm]=eodTime.split(':').map(Number);
+  const eKey='sw-eod-'+td;
+  if(nowMin>=rh*60+rm&&nowMin<rh*60+rm+2){
+    getLastFired(eKey).then(last=>{
+      if(!last){
+        setLastFired(eKey);
+        const done=tasks.filter(t=>t.done&&t.doneAt&&t.doneAt.startsWith(td)).length;
+        const left=tasks.filter(t=>!t.done&&(t.dueDate===td||isOv(t))).length;
+        self.registration.showNotification('📋 EOD Review — HOC PRO',{
+          body:done+' done · '+left+' remaining\n"'+randQuote()+'"',
+          tag:'hoc-eod-'+td,
+          icon:self.__HOC_ICON__||'',
+          requireInteraction:true,
+          vibrate:[200,100,200,100,200]
+        });
+      }
+    });
+  }
+
+  // 6. Daily core tasks — repeat every interval until done
+  const DAILY_CORE_KEYS=['hoc-core-gm','hoc-core-puzzle','hoc-core-figureout'];
+  DAILY_CORE_KEYS.forEach(coreKey=>{
+    const t=tasks.find(x=>x.coreKey===coreKey&&x.dueDate===td);
+    if(!t||t.done)return;
+    const cKey='sw-core-'+coreKey+'-'+slot;
+    getLastFired(cKey).then(last=>{
+      if(!last){
+        setLastFired(cKey);
+        self.registration.showNotification('⚡ Daily Core Undone — '+t.name,{
+          body:'This must be done today. No excuses.\n"'+randQuote()+'"',
+          tag:'hoc-core-'+coreKey+'-'+slot,
+          icon:self.__HOC_ICON__||'',
+          requireInteraction:false,
+          vibrate:[200,100,200]
+        });
+      }
+    });
+  });
+}
+
+// ── Simple fired-key store using Cache API (available in SW) ──
+async function getLastFired(key){
+  try{
+    const cache=await caches.open('hoc-fired-keys');
+    const r=await cache.match('https://hoc.local/fired/'+encodeURIComponent(key));
+    if(!r)return null;
+    const data=await r.json();
+    // Expire after 23h
+    if(Date.now()-data.ts>23*60*60*1000){await cache.delete('https://hoc.local/fired/'+encodeURIComponent(key));return null;}
+    return data;
+  }catch{return null;}
+}
+async function setLastFired(key){
+  try{
+    const cache=await caches.open('hoc-fired-keys');
+    await cache.put('https://hoc.local/fired/'+encodeURIComponent(key),new Response(JSON.stringify({ts:Date.now()})));
+  }catch{}
+}
+
+self.addEventListener('install',e=>{
+  e.waitUntil(self.skipWaiting());
+});
+self.addEventListener('activate',e=>{
+  e.waitUntil(self.clients.claim());
+  startNotifInterval();
+});
+self.addEventListener('notificationclick',e=>{
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({type:'window'}).then(clients=>{
+    if(clients.length)return clients[0].focus();
+    return self.clients.openWindow('./');
+  }));
+});
+// Periodic background sync (Chrome Android only, but graceful fallback)
+self.addEventListener('periodicsync',e=>{
+  if(e.tag==='hoc-notification-check'){
+    e.waitUntil(runChecks());
+  }
+});
+// Keepalive ping every minute via SW message (set up from page)
+self.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='PING'){
+    runChecks();
+  }
+});
+`;
+
+async function registerServiceWorker(iconDataUrl){
+  if(!('serviceWorker' in navigator))return null;
+  try{
+    // Inject the icon URL into SW code
+    const swWithIcon=SW_CODE.replace('self.__HOC_ICON__=undefined','').replace(
+      'self.__HOC_ICON__||\'\'',
+      JSON.stringify(iconDataUrl)+'||\'\'');
+    // Actually we patch it differently:
+    const patchedSW=SW_CODE.split("self.__HOC_ICON__||''").join(JSON.stringify(iconDataUrl)||"''");
+    const swBlob=new Blob([patchedSW],{type:'application/javascript'});
+    const swURL=URL.createObjectURL(swBlob);
+    const reg=await navigator.serviceWorker.register(swURL,{scope:'./'});
+    console.log('[HOC] SW registered',reg);
+    return reg;
+  }catch(e){
+    console.warn('[HOC] SW registration failed:',e);
+    return null;
+  }
+}
+
+// ══════════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 let tasks=[],messages=[],analytics={},streak={},reviews=[];
 let currentView='today',searchQuery='';
 let selectedTasks=new Set();
@@ -1490,32 +1733,60 @@ let mitId=null;
 let remModalTaskId=null;
 let focusActive=false,focusTaskId=null;
 let pomodoroTimer=null,pomodoroSecs=0,pomodoroMode='work';
-let timeBlocks=[];
 let countdownTick=null;
+let swReg=null;
 
-// ══════════════════════════════════════════
-// STORAGE (localStorage instead of chrome.storage)
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// STORAGE
+// ══════════════════════════════════════════════════════
 function loadAll(){
   try{tasks=JSON.parse(localStorage.getItem('hoc-tasks')||'[]');}catch{tasks=[];}
   try{messages=JSON.parse(localStorage.getItem('hoc-messages')||'[]');}catch{messages=[];}
   try{analytics=JSON.parse(localStorage.getItem('hoc-analytics')||'{}');}catch{analytics={};}
   try{streak=JSON.parse(localStorage.getItem('hoc-streak')||'{}');}catch{streak={};}
   try{reviews=JSON.parse(localStorage.getItem('hoc-reviews')||'[]');}catch{reviews=[];}
-  try{timeBlocks=JSON.parse(localStorage.getItem('hoc-timeblocks')||'[]');}catch{timeBlocks=[];}
   mitId=localStorage.getItem('hoc-mit')||null;
 }
-function saveTasks(){localStorage.setItem('hoc-tasks',JSON.stringify(tasks));}
+function saveTasks(){
+  localStorage.setItem('hoc-tasks',JSON.stringify(tasks));
+  syncTasksToSW(); // Always sync to SW after every change
+}
 function saveMessages(){localStorage.setItem('hoc-messages',JSON.stringify(messages));}
 function saveReviews(){localStorage.setItem('hoc-reviews',JSON.stringify(reviews));}
 function saveMIT(){if(mitId)localStorage.setItem('hoc-mit',mitId);else localStorage.removeItem('hoc-mit');}
-function saveTimeBlocks(){localStorage.setItem('hoc-timeblocks',JSON.stringify(timeBlocks));}
-function saveSettings(obj){Object.entries(obj).forEach(([k,v])=>localStorage.setItem('hoc-'+k,v));}
+function saveSettings(obj){Object.entries(obj).forEach(([k,v])=>localStorage.setItem('hoc-'+k,v));syncTasksToSW();}
 function getSetting(k,def=''){return localStorage.getItem('hoc-'+k)||def;}
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// SYNC TO SERVICE WORKER
+// This is the key function that keeps the SW in sync
+// so it can fire notifications even when app is closed
+// ══════════════════════════════════════════════════════
+function syncTasksToSW(){
+  if(!navigator.serviceWorker||!navigator.serviceWorker.controller)return;
+  const payload={
+    tasks,
+    mitId,
+    settings:{
+      repeatInterval:parseInt(getSetting('repeatInterval','30'))||30,
+      eodTime:getSetting('eodReviewTime','18:00'),
+    }
+  };
+  navigator.serviceWorker.controller.postMessage({type:'SYNC_TASKS',payload});
+}
+
+// Ping SW every minute to run checks (ensures SW stays active)
+function startSWPingInterval(){
+  setInterval(()=>{
+    if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+      navigator.serviceWorker.controller.postMessage({type:'PING'});
+    }
+  },60000);
+}
+
+// ══════════════════════════════════════════════════════
 // UTILS
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function p2(n){return String(n).padStart(2,'0');}
 function today(){return new Date().toISOString().split('T')[0];}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -1558,9 +1829,9 @@ function fmtOffset(mins){
 }
 function showOk(id){const e=document.getElementById(id);e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2500);}
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // TAB SWITCHING
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function switchTab(tabId){
   document.querySelectorAll('.bn-item').forEach(b=>b.classList.toggle('on',b.dataset.tab===tabId));
   document.querySelectorAll('.page').forEach(p=>{p.classList.toggle('on',p.id===tabId);});
@@ -1570,9 +1841,9 @@ function switchTab(tabId){
   if(tabId==='reviewPage')renderReviews();
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // CARRY FORWARD
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function runCarryForward(){
   const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
   const yd=yesterday.toISOString().split('T')[0];
@@ -1581,9 +1852,9 @@ function runCarryForward(){
   if(carried>0){saveTasks();snack('↩ '+carried+' task'+(carried!==1?'s':'')+' carried forward.',4000);}
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // DAILY CORE TASKS
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const DAILY_CORE=[
   {key:'hoc-core-gm',name:'Post GM',priority:'high',energy:'quick'},
   {key:'hoc-core-puzzle',name:'Complete Puzzle Submission',priority:'high',energy:'deep'},
@@ -1600,9 +1871,9 @@ function ensureDailyCoreTasks(){
   if(changed)saveTasks();
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // MIT
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function setMIT(id){mitId=id;saveMIT();render();updateHeader();snack('⚡ MIT set.');}
 function clearMIT(){mitId=null;saveMIT();render();updateHeader();}
 function updateHeader(){
@@ -1614,9 +1885,9 @@ function updateHeader(){
   else{banner.classList.remove('on');if(mitId){mitId=null;saveMIT();}}
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // ADD TASK
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function addTask(overrides){
   const name=(overrides&&overrides.name)||document.getElementById('tName').value.trim();
   if(!name){snack('Enter a task name.');return null;}
@@ -1640,13 +1911,12 @@ function addTask(overrides){
     document.getElementById('tPri').value='medium';
     document.getElementById('tEnergy').value='deep';
   }
-  scheduleReminders(task);
   return task;
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // TOGGLE / DELETE / PIN
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function handleRecurring(t){
   if(!t.recur||t.recur==='none')return;
   const next=new Date(t.dueDate?t.dueDate+'T00:00':new Date());
@@ -1662,13 +1932,6 @@ function toggleTask(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   if(!t.done){
     t.done=true;t.doneAt=new Date().toISOString();
-    // Was it worth it? — fire if completed within 30 min of creation
-    const createdMs=new Date(t.created).getTime();
-    const doneMs=new Date(t.doneAt).getTime();
-    if(doneMs-createdMs<30*60000){
-      setTimeout(()=>fireNotification('🤨 Really? — '+t.name,'Was it worth adding? Or are you lying to yourself?','hoc-worthit-'+t.id),1500);
-    }
-    // Update analytics
     const td=today();
     if(!analytics.daily)analytics.daily={};
     if(!analytics.daily[td])analytics.daily[td]={completed:0};
@@ -1676,7 +1939,6 @@ function toggleTask(id){
     if(!analytics.totalCompleted)analytics.totalCompleted=0;
     analytics.totalCompleted++;
     localStorage.setItem('hoc-analytics',JSON.stringify(analytics));
-    // Streak
     updateStreak();
     handleRecurring(t);
     saveTasks();render();updateCounts();updateHeader();
@@ -1708,13 +1970,6 @@ function pinTask(id){
   t.pinned=!t.pinned;saveTasks();render();
   snack(t.pinned?'📌 Pinned.':'Unpinned.');
 }
-function setWaitingOn(id){
-  const t=tasks.find(x=>x.id===id);if(!t)return;
-  const who=prompt('Waiting on whom?',t.waitingOn||'');
-  if(who===null)return;
-  t.waitingOn=who.trim()||null;saveTasks();render();
-  snack(t.waitingOn?'Waiting on '+t.waitingOn:'Cleared.');
-}
 function addSubTask(taskId){
   const name=prompt('Sub-task name:');if(!name||!name.trim())return;
   const t=tasks.find(x=>x.id===taskId);if(!t)return;
@@ -1728,80 +1983,28 @@ function toggleSubTask(taskId,subId){
   s.done=!s.done;saveTasks();render();
 }
 
-// ══════════════════════════════════════════
-// REMINDERS (Web Notification API)
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-// QUOTES ENGINE
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// NOTIFICATIONS — Page-side (fallback + permission)
+// Real persistent notifications come from the SW above
+// ══════════════════════════════════════════════════════
 const QUOTES=[
-  // Andrew Tate
   "Get up and be somebody. No one is coming to save you.",
-  "Cowardice is the only unforgivable sin.",
   "The man who goes to the gym every day regardless of how he feels will beat the man who only goes when he feels like it.",
   "Your mind must be stronger than your feelings.",
   "Do the hard things first. Weakness is a choice.",
   "Speed is extremely important. Act faster than everyone else.",
-  "If you're not making money while you sleep, you'll work until you die.",
-  "Arrogance is a choice. So is weakness.",
-  "The temporary satisfaction of quitting is outweighed by the eternal suffering of being a nobody.",
-  "Pain is the path. Walk it or stay average.",
-  // Sun Tzu
-  "Supreme excellence consists in breaking the enemy's resistance without fighting.",
-  "Know your enemy and know yourself and you need not fear the result of a hundred battles.",
-  "Move swift as the wind, quietly as the forest, attack like fire, be immovable as a mountain.",
-  "The greatest victory is that which requires no battle.",
   "Opportunities multiply as they are seized.",
-  "He who knows when he can fight and when he cannot will be victorious.",
-  "The wise warrior avoids the battle. The great warrior wins without drawing his sword.",
-  "Victorious warriors win first, then go to war. Defeated warriors go to war first, then seek to win.",
+  "Victorious warriors win first, then go to war.",
   "In the midst of chaos, there is also opportunity.",
-  "Strategy without tactics is the slowest route to victory.",
-  // Machiavelli
-  "It is better to be feared than loved, if you cannot be both.",
-  "The lion cannot protect himself from traps, and the fox cannot defend himself from wolves. One must be both a fox and a lion.",
-  "Never attempt to win by force what can be won by deception.",
-  "Men are driven by two principal impulses: either by love or by fear.",
-  "There is no avoiding war; it can only be postponed to the advantage of others.",
   "Power is not given. It is taken.",
-  "He who wishes to be obeyed must know how to command.",
-  "It is not titles that honor men, but men that honor titles.",
-  "The first method for estimating the intelligence of a ruler is to look at the men he has around him.",
-  // Money & Power
-  "Money is the weapon of the 21st century. Master it.",
-  "Wealth is not about having a lot of money. It is about having a lot of options.",
-  "The rich invest their money and spend what is left. The poor spend their money and invest what is left.",
-  "Every empire is built on a single focused obsession.",
-  "Your net worth is a direct reflection of your network and your work ethic.",
-  "Don't tell people your plans. Show them your results.",
-  "Rich men do not celebrate until after the war is won.",
-  "Power is taken, not given. Position yourself or be positioned.",
-  "The market rewards execution, not intention.",
-  "Work in silence. Let the money make the noise.",
-  // Mafia / Street Power
-  "A lion does not lose sleep over the opinion of sheep.",
-  "Speak softly. Carry a big stick. Let your results do the screaming.",
-  "Loyalty and silence are the two most expensive things in the world.",
-  "Never let them know your next move.",
-  "The loudest man in the room is the weakest man in the room.",
-  "Keep your friends close, your enemies closer, and your plans to yourself.",
-  "Fear is a tool. Use it or be used by it.",
-  "Real power is never announced.",
-  "The graveyards are full of men who thought they had more time.",
-  "Respect is earned in blood, sweat, and silence.",
-  // Execution
-  "Discipline is the bridge between goals and accomplishment.",
-  "You don't rise to the level of your goals. You fall to the level of your systems.",
-  "The cost of inaction is greater than the cost of any mistake.",
-  "Stop waiting for the perfect moment. Attack.",
-  "Winners are not people who never fail. They are people who never quit.",
-  "Every second you waste is a second someone else is using against you.",
   "Execution is the game. Everything else is commentary.",
-  "The man who wakes up at 5 AM owns the man who sleeps until 8.",
+  "The cost of inaction is greater than the cost of any mistake.",
+  "Every second you waste is a second someone else is using against you.",
+  "Discipline is the bridge between goals and accomplishment.",
+  "Stop waiting for the perfect moment. Attack.",
+  "Work in silence. Let the money make the noise.",
 ];
 function getRandQuote(){return QUOTES[Math.floor(Math.random()*QUOTES.length)];}
-
-
 
 async function ensureNotificationPermission(){
   if(!('Notification' in window))return false;
@@ -1811,118 +2014,23 @@ async function ensureNotificationPermission(){
   return r==='granted';
 }
 
-function fireNotification(title,body,tag){
+// Page-side notification — fires when app IS open (fallback)
+function firePageNotification(title,body,tag){
   if(!('Notification' in window)||Notification.permission!=='granted')return;
-  const opts={body:body+'\n"'+getRandQuote()+'"',tag:tag||'hoc-'+Date.now()};
-  // Android Chrome does NOT support new Notification() — must always use SW showNotification.
-  // iOS Safari (standalone) supports new Notification() as a fallback only.
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.ready.then(reg=>{
-      return reg.showNotification(title,opts);
-    }).catch(()=>{
-      // Only try direct Notification on iOS standalone where it is supported
-      if(window.navigator.standalone){
-        try{new Notification(title,opts);}catch(e){}
-      }
-    });
-  } else {
-    // No SW support at all — try direct (iOS old versions)
-    try{new Notification(title,opts);}catch(e){}
-  }
+  try{
+    // Prefer SW showNotification (works backgrounded)
+    if(navigator.serviceWorker&&navigator.serviceWorker.controller&&swReg){
+      swReg.showNotification(title,{body,tag:tag||'hoc-'+Date.now(),icon:window._hocIcon||''});
+    }else{
+      new Notification(title,{body,tag:tag||'hoc-'+Date.now()});
+    }
+  }catch(e){}
   playChime();
 }
 
-function runNotificationChecks(){
-  if(!('Notification' in window)||Notification.permission!=='granted')return;
-  const now=new Date();
-  const nowMin=now.getHours()*60+now.getMinutes();
-  const todayKey=today();
-  const repeatMins=parseInt(getSetting('repeatInterval','30'))||30;
-  const slot=Math.floor(now.getTime()/(repeatMins*60000));
-
-  // DUE NOW — fire exactly when task hits its scheduled time
-  tasks.forEach(t=>{
-    if(t.done||!t.dueDate||!t.dueTime)return;
-    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
-    const key='hoc-ndue-'+t.id+'-'+t.dueDate+'-'+t.dueTime;
-    if(Math.abs(dueMs-now.getTime())<60000&&!localStorage.getItem(key)){
-      localStorage.setItem(key,'1');
-      fireNotification('🔴 Due Now — '+t.name,t.priority.toUpperCase()+' priority'+(t.notes?' · '+t.notes:''),'hoc-due-'+t.id);
-    }
-  });
-
-  // DAILY CORE — individual notification per task at 7 AM, repeat every N min until done
-  if(nowMin>=420){
-    DAILY_CORE.forEach(def=>{
-      const t=tasks.find(x=>x.coreKey===def.key&&x.dueDate===todayKey);
-      if(!t||t.done)return;
-      const firstKey='hoc-core7-'+def.key+'-'+todayKey;
-      if(nowMin>=420&&nowMin<422&&!localStorage.getItem(firstKey)){
-        localStorage.setItem(firstKey,'1');
-        fireNotification('⚡ Daily Core — '+t.name,'This must be done today. No excuses.','hoc-cf-'+def.key);
-      }
-      const repKey='hoc-crep-'+def.key+'-'+slot;
-      if(nowMin>=422&&!localStorage.getItem(repKey)){
-        localStorage.setItem(repKey,'1');
-        fireNotification('⚡ Still Undone — '+t.name,'Stop avoiding it. Get it done.','hoc-cr-'+def.key+'-'+slot);
-      }
-    });
-  }
-
-  // REPEAT NUDGE — every N min for non-core open tasks
-  const repeatKey='hoc-nr-'+slot;
-  if(!localStorage.getItem(repeatKey)){
-    const pending=tasks.filter(t=>!t.done&&!t.coreKey&&(t.dueDate===todayKey||isOv(t)));
-    if(pending.length>0){
-      localStorage.setItem(repeatKey,'1');
-      const names=pending.slice(0,3).map(t=>t.name).join(', ')+(pending.length>3?' +more':'');
-      fireNotification('📌 '+pending.length+' task'+(pending.length>1?'s':'')+' open — HOC PRO',names,'hoc-repeat-'+slot);
-    }
-  }
-
-  // TASK REMINDERS — offset-based
-  tasks.forEach(t=>{
-    if(t.done||!t.dueDate||!t.dueTime||!t.reminders||!t.reminders.length)return;
-    const dueMs=new Date(t.dueDate+'T'+t.dueTime).getTime();
-    t.reminders.forEach(r=>{
-      const key='hoc-nf-'+t.id+'-'+r.offsetMins;
-      if(Math.abs(dueMs-(r.offsetMins*60000)-now.getTime())<60000&&!localStorage.getItem(key)){
-        localStorage.setItem(key,'1');
-        fireNotification('⏰ '+t.name,r.note||fmtOffset(r.offsetMins)+' until due','rem-'+t.id);
-      }
-    });
-  });
-
-  // MORNING BRIEF — 9 AM
-  const mKey='hoc-nm-'+todayKey;
-  if(nowMin>=540&&nowMin<542&&!localStorage.getItem(mKey)){
-    localStorage.setItem(mKey,'1');
-    const cnt=tasks.filter(t=>!t.done&&t.dueDate===todayKey).length;
-    const mit=tasks.find(t=>t.id===mitId&&!t.done);
-    fireNotification('☀️ Morning Brief — HOC PRO',(mit?'MIT: '+mit.name+' · ':'')+cnt+' tasks today.','hoc-morning');
-  }
-
-  // EOD NUDGE
-  const eodTime=getSetting('eodReviewTime','18:00');
-  const[rh,rm]=eodTime.split(':').map(Number);
-  const eKey='hoc-ne-'+todayKey;
-  if(nowMin>=rh*60+rm&&getSetting('lastReviewDate','')!==todayKey&&!localStorage.getItem(eKey)){
-    localStorage.setItem(eKey,'1');
-    const done=tasks.filter(t=>t.done&&t.doneAt&&t.doneAt.startsWith(todayKey)).length;
-    const left=tasks.filter(t=>!t.done&&(t.dueDate===todayKey||isOv(t))).length;
-    fireNotification('📋 EOD Review — HOC PRO',done+' done · '+left+' remaining','hoc-eod');
-  }
-}
-
-let _notifPoll=null;
-function startNotificationPolling(){
-  if(_notifPoll)clearInterval(_notifPoll);
-  _notifPoll=setInterval(runNotificationChecks,60000);
-  setTimeout(runNotificationChecks,1500);
-}
-document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='visible')runNotificationChecks();
-});
+// ══════════════════════════════════════════════════════
+// REMINDERS
+// ══════════════════════════════════════════════════════
 function openRemModal(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   remModalTaskId=id;
@@ -1964,9 +2072,9 @@ function removeReminder(id,offsetMins){
   saveTasks();renderRemList(t);render();snack('Reminder removed.');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // BULK
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function updateBulkBar(){
   document.getElementById('bulkCount').textContent=selectedTasks.size;
   document.getElementById('bulkBar').classList.toggle('on',selectedTasks.size>0);
@@ -1982,10 +2090,9 @@ function bulkDelete(){
   snack(count+' task'+(count!==1?'s':'')+' removed.');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // RENDER
-// ══════════════════════════════════════════
-const VT={today:'Today',scheduled:'Scheduled',upcoming:'Next 30 Days',all:'All Active',done:'Completed',overdue:'Overdue'};
+// ══════════════════════════════════════════════════════
 const EM={
   today:{g:'I',t:'Nothing due today',s:'Add a task above'},
   scheduled:{g:'◷',t:'Nothing scheduled',s:'Add a task with a due date'},
@@ -2096,11 +2203,11 @@ function bindTaskEvents(el){
   el.querySelectorAll('.focus-btn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();enterFocusMode(b.dataset.id);}));
   el.querySelectorAll('.bell-btn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();openRemModal(b.dataset.id);}));
   el.querySelectorAll('.rem-chip').forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();openRemModal(c.dataset.id);}));
+  el.querySelectorAll('.sub-btn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();addSubTask(b.dataset.id);}));
   el.querySelectorAll('.subtask-ring').forEach(r=>r.addEventListener('click',e=>{e.stopPropagation();toggleSubTask(r.dataset.pid,r.dataset.id);}));
   el.querySelectorAll('.task-checkbox').forEach(cb=>cb.addEventListener('click',e=>{
     e.stopPropagation();const id=cb.dataset.id;
     if(selectedTasks.has(id))selectedTasks.delete(id);else selectedTasks.add(id);
-    cb.classList.toggle('on',selectedTasks.has(id));
     cb.style.background=selectedTasks.has(id)?'var(--ink)':'';
     cb.style.borderColor=selectedTasks.has(id)?'var(--ink)':'';
     updateBulkBar();
@@ -2140,9 +2247,9 @@ function updateProg(){
   const pp=document.getElementById('pbPct');if(pp)pp.textContent=pct+'%';
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // DAILY PLAN
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function renderDailyPlan(){
   const el=document.getElementById('dpBody');if(!el)return;
   const td=today();
@@ -2174,7 +2281,7 @@ function renderDailyPlan(){
   });
   if(waitingTasks.length){
     h+='<div class="dp-section"><div class="dp-sec-hdr">⏳ Waiting On</div>';
-    h+=waitingTasks.map(t=>'<div class="dp-task-row waiting"><div class="ring'+(t.done?' dn':'')+'" data-id="'+t.id+'" style="flex-shrink:0"></div><span class="dp-tname">'+esc(t.name)+'</span><span style="font-family:\'EB Garamond\',serif;font-size:.75rem;color:var(--stone2)">→ '+esc(t.waitingOn)+'</span></div>').join('');
+    h+=waitingTasks.map(t=>'<div class="dp-task-row"><div class="ring'+(t.done?' dn':'')+'" data-id="'+t.id+'" style="flex-shrink:0"></div><span class="dp-tname">'+esc(t.name)+'</span><span style="font-family:\'EB Garamond\',serif;font-size:.75rem;color:var(--stone2)">→ '+esc(t.waitingOn)+'</span></div>').join('');
     h+='</div>';
   }
   el.innerHTML=h;
@@ -2182,9 +2289,9 @@ function renderDailyPlan(){
   el.querySelectorAll('.dp-focus-btn').forEach(b=>b.addEventListener('click',()=>enterFocusMode(b.dataset.id)));
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // CALENDAR
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS=['S','M','T','W','T','F','S'];
 function renderCal(){
@@ -2241,9 +2348,9 @@ function submitModal(){
   snack('Task added.');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // ANALYTICS
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function renderAnalytics(){
   const total=tasks.length,done=tasks.filter(t=>t.done).length,active=tasks.filter(t=>!t.done).length,ov=tasks.filter(t=>isOv(t)).length;
   const rate=total?Math.round(done/total*100):0;
@@ -2291,9 +2398,9 @@ function renderAnalytics(){
   if(rc)rc.innerHTML=reviews.slice(0,5).map(r=>'<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule2)"><span style="font-family:\'EB Garamond\',serif;font-size:.78rem;color:var(--stone2);flex-shrink:0">'+r.date+'</span><span style="font-family:\'Playfair Display\',serif;font-size:.95rem;color:var(--gold2)">'+r.done+'</span><span style="font-size:.72rem;color:var(--stone2)">done</span><span style="font-family:\'Playfair Display\',serif;font-size:.95rem;color:var(--ink3)">'+r.streak+'d</span><span style="font-size:.72rem;color:var(--stone2)">streak</span>'+(r.note?'<span style="font-family:\'EB Garamond\',serif;font-style:italic;font-size:.82rem;color:var(--stone2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"'+esc(r.note)+'"</span>':'')+'</div>').join('')||'<div style="color:var(--stone2);font-style:italic;padding:8px 0;font-size:.85rem">No reviews yet</div>';
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // MESSAGING
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const DC_CHANNELS=[
   {name:'#achievements-of-the-day',webhook:'https://discord.com/api/webhooks/1484142945270628372/B_dQARRwXsWnNZEajNAztxTtD_XeCp3eCpFDoyMHMyUPAuISIF0_1fBo4yoYvYO4BXMg'},
   {name:'#gm',webhook:'https://discord.com/api/webhooks/1484143175219019806/oo8PkvDZOdreQhq4rO5sCu95DQiQOR5d4YZkAsLCzyExiGIYAFuhntEY1UePk_4vD9iB'},
@@ -2377,9 +2484,9 @@ function renderMsgHistory(){
   if(pc>0){badge.textContent=pc;badge.classList.add('on');}else badge.classList.remove('on');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // EOD REVIEW
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function checkEndOfDay(){
   const eodTime=getSetting('eodReviewTime','18:00');
   const lastReviewDate=getSetting('lastReviewDate','');
@@ -2417,9 +2524,9 @@ function renderReviews(){
   }).join('');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // FOCUS MODE + POMODORO
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function enterFocusMode(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   focusTaskId=id;focusActive=true;
@@ -2450,8 +2557,8 @@ function startPomodoro(mode){
     pomodoroSecs--;renderPomodoroTime();
     if(pomodoroSecs<=0){
       clearPomodoro();playChime();
-      if(pomodoroMode==='work'){fireNotification('🍅 Focus Done — HOC PRO','25 min complete. Take a break.','hoc-pom-work');snack('🍅 25 min focus done. Take a break.',5000);startPomodoro('break');}
-      else{fireNotification('⚡ Break Over — HOC PRO','Back to work.','hoc-pom-break');snack('Break over. Back to work.',3000);startPomodoro('work');}
+      if(pomodoroMode==='work'){firePageNotification('🍅 Focus Done — HOC PRO','25 min complete. Take a break.','hoc-pom-work');snack('🍅 25 min focus done. Take a break.',5000);startPomodoro('break');}
+      else{firePageNotification('⚡ Break Over — HOC PRO','Back to work.','hoc-pom-break');snack('Break over. Back to work.',3000);startPomodoro('work');}
     }
   },1000);
 }
@@ -2477,9 +2584,9 @@ function playChime(){
   }catch(e){}
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // EXPORT
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function exportCSV(){
   const rows=[['Name','Due Date','Due Time','Priority','Energy','Tag','Recur','Status']];
   tasks.forEach(t=>rows.push(['"'+t.name.replace(/"/g,'""')+'"',t.dueDate||'',t.dueTime||'',t.priority,t.energy||'deep',t.tag||'',t.recur||'none',t.done?'Completed':'Active']));
@@ -2495,9 +2602,9 @@ function downloadBlob(content,filename,type){
   const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // SETTINGS
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function loadSettings(){
   const apiKey=getSetting('apiKey');if(apiKey)document.getElementById('apiKeyInput').value=apiKey;
   const ri=getSetting('repeatInterval','30');document.getElementById('repeatInt').value=ri;
@@ -2505,11 +2612,54 @@ function loadSettings(){
   const et=getSetting('eodReviewTime','18:00');document.getElementById('eodTime').value=et;
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// NOTIFICATION DIAGNOSTICS
+// ══════════════════════════════════════════════════════
+function updateNotifStatus(){
+  const box=document.getElementById('notifStatusBox');if(!box)return;
+  const sup='Notification' in window;
+  const perm=sup?Notification.permission:'unsupported';
+  const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  const isAndroid=/Android/i.test(navigator.userAgent);
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+  const ver=navigator.userAgent.match(/OS (\d+)[_\.]/);
+  const iosVer=ver?parseInt(ver[1]):null;
+  const swSupported='serviceWorker' in navigator;
+  box.innerHTML=
+    '<div>📱 Platform: <b>'+(isAndroid?'Android':(isIOS?'iOS':'Desktop/Other'))+'</b></div>'+
+    '<div>🖥️ Home Screen mode: <b>'+(standalone?'✅ Yes (PWA)':'❌ No — install as PWA for background notifs')+'</b></div>'+
+    '<div>🔔 Notification API: <b>'+(sup?'✅ Supported':'❌ Not supported')+'</b></div>'+
+    '<div>🔑 Permission: <b style="color:'+(perm==='granted'?'var(--success)':perm==='denied'?'var(--danger)':'var(--warn)')+'">'+perm.toUpperCase()+'</b></div>'+
+    '<div>⚙️ Service Worker: <b>'+(swSupported?'✅ Supported':'❌ Not supported')+'</b></div>'+
+    '<div>🔄 SW Active: <b>'+(navigator.serviceWorker&&navigator.serviceWorker.controller?'✅ Running':'⚠️ Not active yet — reload app')+'</b></div>'+
+    (iosVer?'<div>🍎 iOS: <b>'+iosVer+(iosVer<16.4?' (Update to iOS 16.4+ for SW notifications)':' ✅')+'</b></div>':'')+
+    '<div>⏰ Repeat interval: <b>'+getSetting('repeatInterval','30')+' min</b></div>';
+}
+
+// ══════════════════════════════════════════════════════
 // BOOT
-// ══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded',()=>{
+// ══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',async()=>{
   loadAll();
+  // Generate and apply icons first
+  const icons=applyIcons();
+  window._hocIcon=icons.i192;
+
+  // Register Service Worker (handles background notifications)
+  if('serviceWorker' in navigator){
+    swReg=await registerServiceWorker(icons.i192);
+    if(swReg){
+      // When SW becomes active, sync task data to it
+      navigator.serviceWorker.addEventListener('controllerchange',()=>{
+        syncTasksToSW();
+      });
+      // If SW is already active, sync immediately
+      if(navigator.serviceWorker.controller){
+        syncTasksToSW();
+      }
+    }
+  }
+
   runCarryForward();
   ensureDailyCoreTasks();
   loadSettings();
@@ -2518,6 +2668,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   const savedTheme=localStorage.getItem('hoc-theme')||'light';
   document.documentElement.setAttribute('data-theme',savedTheme);
   document.getElementById('themeToggle').textContent=savedTheme==='dark'?'☀️':'🌙';
+
+  // Request notification permission up front
+  if('Notification' in window && Notification.permission==='default'){
+    setTimeout(()=>{
+      Notification.requestPermission().then(perm=>{
+        if(perm==='granted'){
+          syncTasksToSW();
+          snack('🔔 Notifications enabled!');
+        }
+        updateNotifStatus();
+      });
+    },2000);
+  }
+
+  // Start SW ping to keep it alive (fires every 60s while app is open)
+  startSWPingInterval();
 
   // Bottom nav
   document.querySelectorAll('.bn-item').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
@@ -2535,13 +2701,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.documentElement.setAttribute('data-theme',next);
     localStorage.setItem('hoc-theme',next);
     document.getElementById('themeToggle').textContent=next==='dark'?'☀️':'🌙';
+    // Update manifest theme color
+    document.querySelector('meta[name="theme-color"][media*="light"]').content=next==='dark'?'#0e0c09':'#faf8f4';
+    document.querySelector('meta[name="theme-color"][media*="dark"]').content='#0e0c09';
   });
 
   // Add task
   document.getElementById('addBtn').addEventListener('click',addTask);
   document.getElementById('tName').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
   document.getElementById('extraFieldsBtn').addEventListener('click',()=>{
-    document.getElementById('extraFieldsBtn').classList.toggle('on');
     document.getElementById('extraFields').classList.toggle('on');
   });
   document.getElementById('tDate').value=today();
@@ -2663,6 +2831,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       eodReviewTime:document.getElementById('eodTime').value,
     });
     showOk('settOk');
+    snack('Settings saved & synced to background.');
   });
   document.getElementById('clearDone').addEventListener('click',()=>{if(!confirm('Clear completed tasks?'))return;tasks=tasks.filter(t=>!t.done);saveTasks();render();updateCounts();updateHeader();snack('Completed tasks cleared.');});
   document.getElementById('clearAll').addEventListener('click',()=>{if(!confirm('Destroy ALL tasks?'))return;tasks=[];saveTasks();render();updateCounts();updateHeader();snack('All tasks destroyed.');});
@@ -2671,101 +2840,44 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('exportJsonBtn').addEventListener('click',exportJSON);
 
   // Notification diagnostics
-  function updateNotifStatus(){
-    const box=document.getElementById('notifStatusBox');if(!box)return;
-    const sup='Notification' in window;
-    const perm=sup?Notification.permission:'unsupported';
-    const standalone=window.navigator.standalone===true;
-    const ver=navigator.userAgent.match(/OS (\d+)[_\.]/);
-    const iosVer=ver?parseInt(ver[1]):null;
-    box.innerHTML=
-      '<div>📱 Home Screen mode: <b>'+(standalone?'✅ Yes':'❌ No — must use Home Screen icon')+'</b></div>'+
-      '<div>🔔 API supported: <b>'+(sup?'✅ Yes':'❌ No')+'</b></div>'+
-      '<div>🔑 Permission: <b style="color:'+(perm==='granted'?'var(--success)':perm==='denied'?'var(--danger)':'var(--warn)')+'">'+perm.toUpperCase()+'</b></div>'+
-      (iosVer?'<div>🍎 iOS: <b>'+iosVer+'</b></div>':'')+
-      '<div>⏰ Interval: <b>'+getSetting('repeatInterval','30')+' min</b></div>';
-  }
   updateNotifStatus();
   document.getElementById('testNotifBtn').addEventListener('click',()=>{
-    if(!('Notification' in window)||Notification.permission!=='granted'){snack('Permission not granted.');return;}
-    const _tOpts={body:'Fired at '+new Date().toLocaleTimeString(),tag:'hoc-test-'+Date.now()};
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.ready.then(reg=>reg.showNotification('✅ HOC PRO — Test',_tOpts))
-        .then(()=>{playChime();snack('Test fired!');})
-        .catch(e=>{snack('Error: '+e.message);});
-    } else {
-      try{new Notification('✅ HOC PRO — Test',_tOpts);playChime();snack('Test fired!');}
+    if(!('Notification' in window)||Notification.permission!=='granted'){snack('Permission not granted. Tap Request Permission.');return;}
+    if(swReg){
+      swReg.showNotification('✅ HOC PRO — Test (SW)',{
+        body:'Service Worker notification — fired at '+new Date().toLocaleTimeString()+'\nThis works even when app is backgrounded!',
+        tag:'hoc-test-'+Date.now(),
+        icon:window._hocIcon||'',
+        requireInteraction:true,
+        vibrate:[200,100,200]
+      });
+      playChime();snack('✅ SW notification fired!');
+    }else{
+      try{new Notification('✅ HOC PRO — Test',{body:'Fired at '+new Date().toLocaleTimeString(),tag:'hoc-test-'+Date.now()});playChime();snack('Test fired (page-mode).');}
       catch(e){snack('Error: '+e.message);}
     }
+    setTimeout(updateNotifStatus,500);
   });
-  document.getElementById('reqPermBtn').addEventListener('click',()=>{
-    ensureNotificationPermission().then(g=>{
-      updateNotifStatus();
-      if(g){startNotificationPolling();snack('✅ Permission granted!');}
-      else snack('Denied. Go to iPhone Settings → Safari → [site] → Notifications.');
-    });
+  document.getElementById('reqPermBtn').addEventListener('click',async()=>{
+    const g=await ensureNotificationPermission();
+    updateNotifStatus();
+    if(g){syncTasksToSW();snack('✅ Permission granted — background notifications active!');}
+    else snack('Denied. Settings → Browser → Notifications → Allow for this site.');
   });
 
-  // Start notification engine
-  ensureNotificationPermission().then(g=>{if(g)startNotificationPolling();else{
-    document.addEventListener('click',()=>{ensureNotificationPermission().then(g2=>{if(g2)startNotificationPolling();});},{once:true});
-  }});
-  startNotificationPolling();
+  // Visibility change — re-sync when app comes back to foreground
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='visible'){
+      syncTasksToSW();
+      updateNotifStatus();
+    }
+  });
 
   // Initial render
   render();updateCounts();updateHeader();renderMsgHistory();renderDailyPlan();
   checkEndOfDay();setInterval(checkEndOfDay,60000);
+  updateNotifStatus();
 });
 </script>
 </body>
 </html>
-<!-- PWA Service Worker + Manifest -->
-<script>
-// Inline manifest for "Add to Home Screen"
-const manifestData = {
-  name: "House of Chirag — Command Centre PRO",
-  short_name: "HOC PRO",
-  start_url: ".",
-  display: "standalone",
-  background_color: "#faf8f4",
-  theme_color: "#faf8f4",
-  orientation: "portrait",
-  icons: [
-    {src:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAA1BMVEUUEQoRiKHFAAAAI0lEQVR4nO3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAeAMBxAABBkQB0QAAAABJRU5ErkJggg==",sizes:"192x192",type:"image/png"},
-    {src:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAAA1BMVEUUEQoRiKHFAAAAJElEQVR4nO3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAeAMBxgABEbQB0QAAAABJRU5ErkJggg==",sizes:"512x512",type:"image/png"}
-  ]
-};
-const manifestBlob = new Blob([JSON.stringify(manifestData)], {type:'application/json'});
-const manifestURL = URL.createObjectURL(manifestBlob);
-const manifestLink = document.getElementById('manifestLink');
-if(manifestLink) manifestLink.href = manifestURL;
-
-// Service Worker for offline support
-if('serviceWorker' in navigator){
-  const swCode = `
-const CACHE = 'hoc-pwa-v1';
-self.addEventListener('install', e => {
-  self.skipWaiting();
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./'])));
-});
-self.addEventListener('activate', e => {
-  e.waitUntil(self.clients.claim());
-});
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match('/')))
-  );
-});
-self.addEventListener('notificationclick', e => {
-  e.notification.close();
-  e.waitUntil(self.clients.matchAll({type:'window'}).then(list => {
-    for(const c of list){ if(c.url && 'focus' in c) return c.focus(); }
-    if(self.clients.openWindow) return self.clients.openWindow('/');
-  }));
-});
-  `;
-  const swBlob = new Blob([swCode], {type:'application/javascript'});
-  const swURL = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swURL).catch(()=>{});
-}
-</script>
